@@ -11,13 +11,13 @@ namespace MMX.MenuSystem
         [field: SerializeField] public AudioSource Audio { get; private set; }
 
         [field: Space]
-        [field: SerializeField] public AbstractMenuScreen FirstScreen { get; private set; }
+        [field: SerializeField] public AbstractScreen FirstScreen { get; private set; }
 
-        public AbstractMenuScreen LastScreen { get; private set; }
-        public AbstractMenuScreen CurrentScreen { get; private set; }
-        public Dictionary<string, AbstractMenuScreen> Screens { get; private set; }
+        public AbstractScreen LastScreen { get; private set; }
+        public AbstractScreen CurrentScreen { get; private set; }
+        public Dictionary<string, AbstractScreen> Screens { get; private set; }
 
-        private readonly Stack<AbstractMenuScreen> undoHistory = new();
+        private readonly Stack<AbstractScreen> undoHistory = new();
 
         private void Reset()
         {
@@ -39,14 +39,14 @@ namespace MMX.MenuSystem
             if (eventSystem) eventSystem.sendNavigationEvents = enabled;
         }
 
-        public async void OpenScreen(AbstractMenuScreen screen, bool undoable = true)
+        public async void OpenScreen(AbstractScreen screen, bool undoable = true)
         {
             SetSendNavigationEvents(false);
             DisposeElements();
 
             LastScreen = CurrentScreen;
 
-            await CurrentScreen.FadeOutAsync();
+            if (CurrentScreen) await CurrentScreen.FadeOutAsync();
             HideAllScreens();
 
             if (undoable)
@@ -72,7 +72,7 @@ namespace MMX.MenuSystem
 
         private void InitializeScreens()
         {
-            var screens = GetComponentsInChildren<AbstractMenuScreen>(includeInactive: true);
+            var screens = GetComponentsInChildren<AbstractScreen>(includeInactive: true);
             Screens = new(screens.Length);
 
             foreach (var screen in screens)
