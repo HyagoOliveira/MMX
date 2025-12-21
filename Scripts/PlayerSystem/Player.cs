@@ -72,9 +72,9 @@ namespace MMX.PlayerSystem
         }
 
         public void SetDashInput(bool hasInput) { }// => Dash.Input.Set(hasInput);
-        public void SetMainAttackInput(bool hasInput) => CurrentArmor.MainWeapon.SetInput(hasInput);
-        public void SetSideAttackInput(bool hasInput) => CurrentArmor.SideWeapon.SetInput(hasInput);
-        public void SetGigaAttackInput(bool hasInput) => CurrentArmor.GigaWeapon.SetInput(hasInput);
+        public void SetMainAttackInput(bool hasInput) => CurrentArmor.SetMainWeaponInput(hasInput);
+        public void SetSideAttackInput(bool hasInput) => CurrentArmor.SetSideWeaponInput(hasInput);
+        public void SetGigaAttackInput(bool hasInput) => CurrentArmor.SetGigaWeaponInput(hasInput);
         public void SwitchInput() { }
         #endregion
     }

@@ -9,32 +9,57 @@ namespace MMX.PlayerSystem
     {
         [SerializeField] private Player player;
 
-        private void Awake() => SubscriveEvents();
-        private void OnEnable() => InputManager.Player.Enable();
-        private void Update() => InputManager.Player.Update();
-        private void OnDisable() => InputManager.Player.Disable();
-        private void OnDestroy() => UnsubscriveEvents();
+        private InputActions inputActions;
+        private PlayerActions playerActions;
+
+        private void Awake()
+        {
+            Initialize();
+            SubscriveEvents();
+        }
+
+        private void OnEnable() => playerActions.Enable();
+        private void Update() => playerActions.Update();
+        private void OnDisable() => playerActions.Disable();
+
+        private void OnDestroy()
+        {
+            UnsubscriveEvents();
+            Dispose();
+        }
+
+        private void Initialize()
+        {
+            inputActions = new InputActions();
+            playerActions = new PlayerActions(inputActions.Player);
+        }
 
         private void SubscriveEvents()
         {
-            InputManager.Player.OnMoved += player.SetMoveInput;
-            InputManager.Player.OnJumped += player.SetJumpInput;
-            InputManager.Player.OnDashed += player.SetDashInput;
-            InputManager.Player.OnMainAttacked += player.SetMainAttackInput;
-            InputManager.Player.OnSideAttacked += player.SetSideAttackInput;
-            InputManager.Player.OnGigaAttacked += player.SetGigaAttackInput;
-            InputManager.Player.OnSwitched += player.SwitchInput;
+            playerActions.OnMoved += player.SetMoveInput;
+            playerActions.OnJumped += player.SetJumpInput;
+            playerActions.OnDashed += player.SetDashInput;
+            playerActions.OnMainAttacked += player.SetMainAttackInput;
+            playerActions.OnSideAttacked += player.SetSideAttackInput;
+            playerActions.OnGigaAttacked += player.SetGigaAttackInput;
+            playerActions.OnSwitched += player.SwitchInput;
         }
 
         private void UnsubscriveEvents()
         {
-            InputManager.Player.OnMoved -= player.SetMoveInput;
-            InputManager.Player.OnJumped -= player.SetJumpInput;
-            InputManager.Player.OnDashed -= player.SetDashInput;
-            InputManager.Player.OnMainAttacked -= player.SetMainAttackInput;
-            InputManager.Player.OnSideAttacked -= player.SetSideAttackInput;
-            InputManager.Player.OnGigaAttacked -= player.SetGigaAttackInput;
-            InputManager.Player.OnSwitched -= player.SwitchInput;
+            playerActions.OnMoved -= player.SetMoveInput;
+            playerActions.OnJumped -= player.SetJumpInput;
+            playerActions.OnDashed -= player.SetDashInput;
+            playerActions.OnMainAttacked -= player.SetMainAttackInput;
+            playerActions.OnSideAttacked -= player.SetSideAttackInput;
+            playerActions.OnGigaAttacked -= player.SetGigaAttackInput;
+            playerActions.OnSwitched -= player.SwitchInput;
+        }
+
+        private void Dispose()
+        {
+            playerActions = null;
+            inputActions.Dispose();
         }
     }
 }

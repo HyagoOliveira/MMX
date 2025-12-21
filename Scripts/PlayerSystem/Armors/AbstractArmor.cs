@@ -13,5 +13,9 @@ namespace MMX.PlayerSystem
         [field: SerializeField] public AbstractWeapon MainWeapon { get; private set; }
         [field: SerializeField] public AbstractWeapon SideWeapon { get; private set; }
         [field: SerializeField] public AbstractWeapon GigaWeapon { get; private set; }
+
+        public void SetMainWeaponInput(bool hasInput) { if (MainWeapon) MainWeapon.SetInput(hasInput); }
+        public void SetSideWeaponInput(bool hasInput) { if (SideWeapon) SideWeapon.SetInput(hasInput); }
+        public void SetGigaWeaponInput(bool hasInput) { if (GigaWeapon) GigaWeapon.SetInput(hasInput); }
     }
 }
