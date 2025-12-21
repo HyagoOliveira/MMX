@@ -1,4 +1,4 @@
-﻿namespace MMX.Players
+﻿namespace MMX.CoreSystem
 {
     /// <summary>
     /// All players in the game.
