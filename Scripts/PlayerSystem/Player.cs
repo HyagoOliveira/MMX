@@ -45,15 +45,15 @@ namespace MMX.PlayerSystem
             CurrentArmor = GetComponentInChildren<AbstractArmor>();
         }
 
-        private void Awake() => armorLoader = GetComponentInChildren<AbstractArmorLoader>();
+        private void Awake()
+        {
+            CurrentArmor = GetComponentInChildren<AbstractArmor>();
+            armorLoader = GetComponentInChildren<AbstractArmorLoader>();
+        }
 
         //TODO load armor from GameData
 
-        public async void LoadArmor(ArmorName armor)
-        {
-            CurrentArmor.Dispose();
-            CurrentArmor = await armorLoader.LoadAsync(armor);
-        }
+        public async void LoadArmor(ArmorName armor) => CurrentArmor = await armorLoader.LoadAsync(armor);
 
         #region INPUTS
         public void SetMoveInput(Vector2 input)
