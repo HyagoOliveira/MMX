@@ -36,13 +36,7 @@ namespace MMX.InputSystem
             rebindingOperation.Start();
         }
 
-        private void HandleRebindCompleted(RebindingOperation operation)
-        {
-            rebindingOperation.Dispose();
-            operation.action.Enable();
-        }
-
-        internal void Update()
+        public void Update()
         {
 #if UNITY_EDITOR
             if (UnityEditor.EditorApplication.isPaused) UpdateUsingLegacySystem();
@@ -50,6 +44,12 @@ namespace MMX.InputSystem
 #else
             UpdateUsingNewSystem();
 #endif
+        }
+
+        private void HandleRebindCompleted(RebindingOperation operation)
+        {
+            rebindingOperation.Dispose();
+            operation.action.Enable();
         }
 
         private void UpdateUsingNewSystem()

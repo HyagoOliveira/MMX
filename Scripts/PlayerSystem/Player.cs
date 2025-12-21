@@ -62,6 +62,8 @@ namespace MMX.PlayerSystem
         public void SetMainAttackInput(bool hasInput) { }//=> Weapons.TrySetMainWeaponInput(hasInput);
         public void SetSideAttackInput(bool hasInput) { }// => Weapons.TrySetSideWeaponInput(hasInput);
         public void SetGigaAttackInput(bool hasInput) { } //TODO => Weapons.TrySetGigaWeaponInput(hasInput);
+
+        public void Switch() { }
         #endregion
     }
 }

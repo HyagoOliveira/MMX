@@ -14,7 +14,6 @@ namespace MMX.InputSystem
         public static PlayerActions Player { get; private set; }
 
         private void Awake() => Initialize();
-        private void Update() => Player.Update();
         private void OnDestroy() => Dispose();
 
         public void Pause()

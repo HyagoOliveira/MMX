@@ -1,5 +1,5 @@
 using UnityEngine;
-//using Input = MMXD.InputSystem.Input;
+using MMX.InputSystem;
 
 namespace MMX.PlayerSystem
 {
@@ -9,26 +9,32 @@ namespace MMX.PlayerSystem
     {
         [SerializeField] private Player player;
 
-        private void OnEnable()
+        private void Awake() => SubscriveEvents();
+        private void OnEnable() => InputManager.Player.Enable();
+        private void Update() => InputManager.Player.Update();
+        private void OnDisable() => InputManager.Player.Disable();
+        private void OnDestroy() => UnsubscriveEvents();
+
+        private void SubscriveEvents()
         {
-            /*Input.Player.OnMoved += player.SetMoveInput;
-            Input.Player.OnJumped += player.SetJumpInput;
-            Input.Player.OnDashed += player.SetDashInput;
-            Input.Player.OnMainAttacked += player.SetMainAttackInput;
-            Input.Player.OnSideAttacked += player.SetSideAttackInput;
-            Input.Player.OnGigaAttacked += player.SetGigaAttackInput;
-            //Input.Player.OnSwitched += PlayerManager.Switch;*/
+            InputManager.Player.OnMoved += player.SetMoveInput;
+            InputManager.Player.OnJumped += player.SetJumpInput;
+            InputManager.Player.OnDashed += player.SetDashInput;
+            InputManager.Player.OnMainAttacked += player.SetMainAttackInput;
+            InputManager.Player.OnSideAttacked += player.SetSideAttackInput;
+            InputManager.Player.OnGigaAttacked += player.SetGigaAttackInput;
+            InputManager.Player.OnSwitched += player.Switch;
         }
 
-        private void OnDisable()
+        private void UnsubscriveEvents()
         {
-            /*Input.Player.OnMoved -= player.SetMoveInput;
-            Input.Player.OnJumped -= player.SetJumpInput;
-            Input.Player.OnDashed -= player.SetDashInput;
-            Input.Player.OnMainAttacked -= player.SetMainAttackInput;
-            Input.Player.OnSideAttacked -= player.SetSideAttackInput;
-            Input.Player.OnGigaAttacked -= player.SetGigaAttackInput;
-            //Input.Player.OnSwitched -= PlayerManager.Switch;*/
+            InputManager.Player.OnMoved -= player.SetMoveInput;
+            InputManager.Player.OnJumped -= player.SetJumpInput;
+            InputManager.Player.OnDashed -= player.SetDashInput;
+            InputManager.Player.OnMainAttacked -= player.SetMainAttackInput;
+            InputManager.Player.OnSideAttacked -= player.SetSideAttackInput;
+            InputManager.Player.OnGigaAttacked -= player.SetGigaAttackInput;
+            InputManager.Player.OnSwitched -= player.Switch;
         }
     }
 }
