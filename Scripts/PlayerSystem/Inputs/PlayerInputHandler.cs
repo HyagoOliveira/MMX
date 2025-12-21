@@ -23,7 +23,7 @@ namespace MMX.PlayerSystem
             InputManager.Player.OnMainAttacked += player.SetMainAttackInput;
             InputManager.Player.OnSideAttacked += player.SetSideAttackInput;
             InputManager.Player.OnGigaAttacked += player.SetGigaAttackInput;
-            InputManager.Player.OnSwitched += player.Switch;
+            InputManager.Player.OnSwitched += player.SwitchInput;
         }
 
         private void UnsubscriveEvents()
@@ -34,7 +34,7 @@ namespace MMX.PlayerSystem
             InputManager.Player.OnMainAttacked -= player.SetMainAttackInput;
             InputManager.Player.OnSideAttacked -= player.SetSideAttackInput;
             InputManager.Player.OnGigaAttacked -= player.SetGigaAttackInput;
-            InputManager.Player.OnSwitched -= player.Switch;
+            InputManager.Player.OnSwitched -= player.SwitchInput;
         }
     }
 }

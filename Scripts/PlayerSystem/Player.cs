@@ -26,8 +26,7 @@ namespace MMX.PlayerSystem
         [field: SerializeField] public BoxCollider2DAdapter ColliderAdapter { get; private set; }
 
         [field: Space]
-        [field: SerializeField] public AbstractArmorLoader ArmorLoader { get; private set; }
-
+        [field: SerializeField] public ArmorController Armor { get; private set; }
 
         public BoxCollider2D Collider => ColliderAdapter.Collider;
 
@@ -39,7 +38,7 @@ namespace MMX.PlayerSystem
             StateMachine = GetComponent<AnimatorStateMachine>();
             ColliderAdapter = GetComponent<BoxCollider2DAdapter>();
 
-            ArmorLoader = GetComponentInChildren<AbstractArmorLoader>();
+            Armor = GetComponentInChildren<ArmorController>();
         }
 
         #region INPUTS
@@ -62,8 +61,7 @@ namespace MMX.PlayerSystem
         public void SetMainAttackInput(bool hasInput) { }//=> Weapons.TrySetMainWeaponInput(hasInput);
         public void SetSideAttackInput(bool hasInput) { }// => Weapons.TrySetSideWeaponInput(hasInput);
         public void SetGigaAttackInput(bool hasInput) { } //TODO => Weapons.TrySetGigaWeaponInput(hasInput);
-
-        public void Switch() { }
+        public void SwitchInput() { }
         #endregion
     }
 }
