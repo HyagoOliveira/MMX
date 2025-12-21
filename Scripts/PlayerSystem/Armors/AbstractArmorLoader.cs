@@ -5,6 +5,6 @@ namespace MMX.PlayerSystem
 {
     public abstract class AbstractArmorLoader : MonoBehaviour
     {
-        public abstract void Load(Armors armor);
+        public abstract void Load(ArmorName armor);
     }
 }

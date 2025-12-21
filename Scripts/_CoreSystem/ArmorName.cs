@@ -3,7 +3,7 @@ namespace MMX.CoreSystem
     /// <summary>
     /// All armors in the game.
     /// </summary>
-    public enum Armors
+    public enum ArmorName
     {
         #region Mega Man X
         MMX_Normal,
