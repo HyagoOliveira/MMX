@@ -5,6 +5,6 @@ namespace MMX.PlayerSystem
 {
     public abstract class AbstractArmorLoader : MonoBehaviour
     {
-        public abstract void Load(ArmorName armor);
+        public abstract Awaitable<AbstractArmor> LoadAsync(ArmorName armor);
     }
 }

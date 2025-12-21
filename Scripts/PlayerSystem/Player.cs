@@ -1,4 +1,5 @@
 using UnityEngine;
+using MMX.CoreSystem;
 using MMX.CharacterSystem;
 using ActionCode.Physics;
 using ActionCode.Sidescroller;
@@ -19,6 +20,7 @@ namespace MMX.PlayerSystem
     [RequireComponent(typeof(BoxCollider2DAdapter))]
     public sealed class Player : MonoBehaviour
     {
+        [field: SerializeField] public PlayerName Name { get; private set; }
         [field: SerializeField] public Motor Motor { get; private set; }
         [field: SerializeField] public BoxBody Body { get; private set; }
         [field: SerializeField] public AnimationEvents Events { get; private set; }
@@ -26,9 +28,11 @@ namespace MMX.PlayerSystem
         [field: SerializeField] public BoxCollider2DAdapter ColliderAdapter { get; private set; }
 
         [field: Space]
-        [field: SerializeField] public ArmorController Armor { get; private set; }
+        [field: SerializeField] public AbstractArmor CurrentArmor { get; private set; }
 
         public BoxCollider2D Collider => ColliderAdapter.Collider;
+
+        private AbstractArmorLoader armorLoader;
 
         private void Reset()
         {
@@ -38,7 +42,17 @@ namespace MMX.PlayerSystem
             StateMachine = GetComponent<AnimatorStateMachine>();
             ColliderAdapter = GetComponent<BoxCollider2DAdapter>();
 
-            Armor = GetComponentInChildren<ArmorController>();
+            CurrentArmor = GetComponentInChildren<AbstractArmor>();
+        }
+
+        private void Awake() => armorLoader = GetComponentInChildren<AbstractArmorLoader>();
+
+        //TODO load armor from GameData
+
+        public async void LoadArmor(ArmorName armor)
+        {
+            CurrentArmor.Dispose();
+            CurrentArmor = await armorLoader.LoadAsync(armor);
         }
 
         #region INPUTS
@@ -58,9 +72,9 @@ namespace MMX.PlayerSystem
         }
 
         public void SetDashInput(bool hasInput) { }// => Dash.Input.Set(hasInput);
-        public void SetMainAttackInput(bool hasInput) { }//=> Weapons.TrySetMainWeaponInput(hasInput);
-        public void SetSideAttackInput(bool hasInput) { }// => Weapons.TrySetSideWeaponInput(hasInput);
-        public void SetGigaAttackInput(bool hasInput) { } //TODO => Weapons.TrySetGigaWeaponInput(hasInput);
+        public void SetMainAttackInput(bool hasInput) => CurrentArmor.MainWeapon.SetInput(hasInput);
+        public void SetSideAttackInput(bool hasInput) => CurrentArmor.SideWeapon.SetInput(hasInput);
+        public void SetGigaAttackInput(bool hasInput) => CurrentArmor.GigaWeapon.SetInput(hasInput);
         public void SwitchInput() { }
         #endregion
     }
